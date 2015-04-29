@@ -43,7 +43,7 @@
         <!-- 友盟key 账号 393014752@qq.com -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="55014f50fd98c5c79900000d" >
+            android:value="55407fc967e58ec997001dc1" >
         </meta-data>
         <!-- 注册微信回调 -->
         <activity
