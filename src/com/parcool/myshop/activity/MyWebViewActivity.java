@@ -38,7 +38,7 @@ public class MyWebViewActivity extends Activity {
 			@Override
 			public void onLogin() {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(MyWebViewActivity.this, ManiActivity.class);
+				Intent intent = new Intent(MyWebViewActivity.this, MainActivity.class);
 				intent.putExtra("ext", "loginFromWeb");
 				MyWebViewActivity.this.startActivityForResult(intent, 1);
 			}
