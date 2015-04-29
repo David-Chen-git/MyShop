@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
@@ -60,5 +61,17 @@ public class MainActivity extends Activity {
 		config.setToDefaults();
 		res.updateConfiguration(config, res.getDisplayMetrics());
 		return res;
+	}
+	
+	// 按下返回键，如果当前页面可以返回那么返回HTML，否则返回Activity
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && myChromeWebViewOne.canGoBack()) {
+			myChromeWebViewOne.resumeTimers();
+			myChromeWebViewOne.pauseTimers();
+			myChromeWebViewOne.goBack();// 返回前一个页面
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }
