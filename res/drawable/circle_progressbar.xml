@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="0"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:toDegrees="-720" >
+
+    <!--
+ android:innerRadiusRatio	浮点型，以环的宽度比率来表示内环的半径 
+   表示内环半径等于环的宽度除以N，这个值是可以被覆盖的，默认为9.
+ android:thickness	尺寸，环的厚度
+ android:thicknessRatio	浮点型，以环的宽度比率来表示环的厚度，例如，如果android:thicknessRatio="2"，
+   那么环的厚度就等于环的宽度除以2。这个值是可以被android:thickness覆盖的，默认值是3.
+    -->
+    <shape
+        android:innerRadiusRatio="3"
+        android:shape="ring"
+        android:thicknessRatio="15"
+        android:useLevel="false" >
+        <gradient
+            android:centerY="0.50"
+            android:endColor="#ffbfbf"
+            android:startColor="#ff0000"
+            android:type="sweep"
+            android:useLevel="false" />
+    </shape>
+
+</rotate>

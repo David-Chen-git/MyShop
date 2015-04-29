@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="DotCircleProgressViewStyle">
+        <attr name="dotColor" format="color"/>
+        <attr name="dotSizeMin" format="dimension" />
+        <attr name="dotSizeMax" format="dimension" />
+        <attr name="dotCount" format="integer"></attr>
+    </declare-styleable>
+
+</resources>
