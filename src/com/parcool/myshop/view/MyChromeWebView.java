@@ -1,7 +1,6 @@
 package com.parcool.myshop.view;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -28,14 +27,15 @@ import com.parcool.myshop.impl.IWebViewProgress;
 public class MyChromeWebView extends WebView {
 
 	private IWebViewProgress theIWebViewProgress;
-	private Activity theActivity;
+	private Context theContext;
 	private String theUrl;
+	private IWebViewStatus theIWebViewStatus;
 
 	@SuppressLint("SetJavaScriptEnabled")
-	public MyChromeWebView(Activity activity, String url, IWebViewProgress iWebViewProgress) {
+	public MyChromeWebView(Context context, String url, IWebViewProgress iWebViewProgress) {
 		// TODO Auto-generated constructor stub
-		super(activity);
-		this.theActivity = activity;
+		super(context);
+		this.theContext = context;
 		this.theIWebViewProgress = iWebViewProgress;
 		this.theUrl = url;
 
@@ -67,12 +67,12 @@ public class MyChromeWebView extends WebView {
 			public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
 				Log.d("tag", "下载地址：" + url);
 				if (url != null && url.startsWith("http://"))
-					theActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+					theContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
 			}
 		});
 		this.setWebViewClient(new WebViewClient() {
 			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-				Toast.makeText(theActivity, "页面发生错误：" + description, Toast.LENGTH_SHORT).show();
+				Toast.makeText(theContext, "页面发生错误：" + description, Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -85,12 +85,17 @@ public class MyChromeWebView extends WebView {
 		this.loadUrl(theUrl);
 	}
 
-	private IWebViewStatus theIWebViewStatus;
+	/***
+	 * 新建一个WebView。
+	 * @param context context 
+	 * @param url 网址，必须带前缀http：//
+	 * @param iWebViewStatus 当加载完成或加载失败后返回的状态接口
+	 */
 	@SuppressLint("SetJavaScriptEnabled")
-	public MyChromeWebView(Activity activity, String url,IWebViewStatus iWebViewStatus) {
+	public MyChromeWebView(Context context, String url,IWebViewStatus iWebViewStatus) {
 		// TODO Auto-generated constructor stub
-		super(activity);
-		this.theActivity = activity;
+		super(context);
+		this.theContext = context;
 		this.theUrl = url;
 		this.theIWebViewStatus = iWebViewStatus;
 		setWebChromeClient(new WebChromeClient() {
@@ -99,7 +104,6 @@ public class MyChromeWebView extends WebView {
 		this.getSettings().setJavaScriptEnabled(true);
 		this.setWebViewClient(new WebViewClient() {
 			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-				Toast.makeText(theActivity, "页面发生错误：" + description, Toast.LENGTH_SHORT).show();
 				theIWebViewStatus.onPageError(errorCode,description);
 			}
 
@@ -112,6 +116,35 @@ public class MyChromeWebView extends WebView {
 		});
 
 		this.loadUrl(theUrl);
+	}
+	
+	/***
+	 * 新建一个WebView。
+	 * @param context context 
+	 * @param iWebViewStatus 当加载完成或加载失败后返回的状态接口
+	 */
+	@SuppressLint("SetJavaScriptEnabled")
+	public MyChromeWebView(Context context,IWebViewStatus iWebViewStatus) {
+		// TODO Auto-generated constructor stub
+		super(context);
+		this.theContext = context;
+		this.theIWebViewStatus = iWebViewStatus;
+		setWebChromeClient(new WebChromeClient() {
+			// 可以设置进度
+		});
+		this.getSettings().setJavaScriptEnabled(true);
+		this.setWebViewClient(new WebViewClient() {
+			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+				theIWebViewStatus.onPageError(errorCode,description);
+			}
+
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				// TODO Auto-generated method stub
+				super.onPageFinished(view, url);
+				theIWebViewStatus.onPageFinished();
+			}
+		});
 	}
 
 	/***

@@ -2,11 +2,11 @@ package com.parcool.myshop.utils;
 
 
 import com.parcool.myshop.R;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -40,6 +40,7 @@ public class DialogUtil {
 	private ProgressDialog pd;
 	private int backCount = 0;
 	private Activity dismissActivity = null;
+	private int LOADING_TOP_MARGIN = 100;//单位，px。实际应用中会自动转成dp
 
 	
 	/***
@@ -57,9 +58,10 @@ public class DialogUtil {
 					tempView.setVisibility(View.GONE);
 				}
 			}
+			Log.i("tag", "viewGroupRl:共"+viewGroupRl.getChildCount()+"个childCount!");
 			RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 			layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-			layoutParams.topMargin = 100;
+			layoutParams.topMargin = CommonUtil.getInstance().dp2px(activity, LOADING_TOP_MARGIN);
 			pb = new ProgressBar(activity);
 			pb.setLayoutParams(layoutParams);
 			pb.setIndeterminateDrawable(activity.getResources().getDrawable(R.drawable.circle_progressbar));
@@ -72,9 +74,10 @@ public class DialogUtil {
 					tempView.setVisibility(View.GONE);
 				}
 			}
+			Log.i("tag", "viewGroupLl:共"+viewGroupLl.getChildCount()+"个childCount!");
 			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 			layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
-			layoutParams.topMargin = 100;
+			layoutParams.topMargin = CommonUtil.getInstance().dp2px(activity, LOADING_TOP_MARGIN);
 			pb = new ProgressBar(activity);
 			pb.setLayoutParams(layoutParams);
 			pb.setIndeterminateDrawable(activity.getResources().getDrawable(R.drawable.circle_progressbar));
@@ -87,9 +90,10 @@ public class DialogUtil {
 					tempView.setVisibility(View.GONE);
 				}
 			}
+			Log.i("tag", "viewGroupFl:共"+viewGroupFl.getChildCount()+"个childCount!");
 			FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
 			layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
-			layoutParams.topMargin = 100;
+			layoutParams.topMargin = CommonUtil.getInstance().dp2px(activity, LOADING_TOP_MARGIN);
 			pb = new ProgressBar(activity);
 			pb.setLayoutParams(layoutParams);
 			pb.setIndeterminateDrawable(activity.getResources().getDrawable(R.drawable.circle_progressbar));
@@ -148,8 +152,7 @@ public class DialogUtil {
 
 
 	/***
-	 * 创建progressDialog
-	 * 
+	 * 创建progressDialog,不带任何提示文字
 	 * @param context
 	 */
 	public void showProgressDialog(Context context) {
@@ -160,7 +163,7 @@ public class DialogUtil {
 
 
 	/***
-	 * 创建progressDialog
+	 * 创建progressDialog,带提示文字。如：正在加载中……
 	 * 
 	 * @param context
 	 */
@@ -172,8 +175,7 @@ public class DialogUtil {
 	}
 
 	/***
-	 * 创建progressDialog
-	 * 
+	 * 创建progressDialog,不带任何提示文字。是否可以按返回键返回？true：可以按返回键返回，但需要按3次。false：不可按返回键返回
 	 * @param context
 	 */
 	public void showProgressDialog(final Activity activity, boolean cancelable) {
@@ -209,7 +211,7 @@ public class DialogUtil {
 	}
 
 	/***
-	 * 创建progressDialog
+	 * 创建progressDialog,带提示文字。是否可以按返回键返回？true：可以按返回键返回，但需要按3次。false：不可按返回键返回
 	 * 
 	 * @param context
 	 */
