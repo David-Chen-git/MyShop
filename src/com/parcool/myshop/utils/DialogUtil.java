@@ -7,11 +7,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -40,7 +38,6 @@ public class DialogUtil {
 	private LinearLayout viewGroupLl;
 	private FrameLayout viewGroupFl;
 	private ProgressDialog pd;
-	private DisplayMetrics displayMeterics = new DisplayMetrics();
 	private int backCount = 0;
 	private Activity dismissActivity = null;
 
@@ -149,23 +146,6 @@ public class DialogUtil {
 
 	}
 
-	// 获取屏幕宽度
-	public int getPhoneWidth(Activity activity) {
-		if (displayMeterics == null) {
-			WindowManager wm = activity.getWindowManager();
-			wm.getDefaultDisplay().getMetrics(displayMeterics);
-		}
-		return displayMeterics.widthPixels;
-	}
-
-	// 获取屏幕高度
-	public int getPhoneHeight(Activity activity) {
-		if (displayMeterics == null) {
-			WindowManager wm = activity.getWindowManager();
-			wm.getDefaultDisplay().getMetrics(displayMeterics);
-		}
-		return displayMeterics.heightPixels;
-	}
 
 	/***
 	 * 创建progressDialog
