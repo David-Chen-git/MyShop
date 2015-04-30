@@ -6,7 +6,9 @@ import static java.lang.Math.sin;
 
 
 
+
 import com.parcool.myshop.R;
+import com.parcool.myshop.utils.CommonUtil;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -28,6 +30,39 @@ public class DotCircleProgressView extends View {
 	private int dotCount = 8;// 圆点数量，设置默认值为：8
 	private float[] eachDotSize = null;
 	private float r = 0;
+	
+
+	public int getDotColor() {
+		return dotColor;
+	}
+
+	public void setDotColor(int dotColor) {
+		this.dotColor = dotColor;
+	}
+
+	public float getDotSizeMin() {
+		return dotSizeMin;
+	}
+
+	public void setDotSizeMin(float dotSizeMin) {
+		this.dotSizeMin = dotSizeMin;
+	}
+
+	public float getDotSizeMax() {
+		return dotSizeMax;
+	}
+
+	public void setDotSizeMax(float dotSizeMax) {
+		this.dotSizeMax = dotSizeMax;
+	}
+
+	public int getDotCount() {
+		return dotCount;
+	}
+
+	public void setDotCount(int dotCount) {
+		this.dotCount = dotCount;
+	}
 
 	@SuppressLint("NewApi")
 	public DotCircleProgressView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -51,7 +86,12 @@ public class DotCircleProgressView extends View {
 	public DotCircleProgressView(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
-		init(context, null);
+	}
+	
+	public void initView(Context context){
+		dotSizeMin = CommonUtil.getInstance().dp2px(context, dotSizeMin);
+		dotSizeMax = CommonUtil.getInstance().dp2px(context, dotSizeMax);
+		init(context,null);
 	}
 
 	/***

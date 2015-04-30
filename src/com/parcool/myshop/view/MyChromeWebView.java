@@ -3,6 +3,7 @@ package com.parcool.myshop.view;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -103,6 +104,13 @@ public class MyChromeWebView extends WebView {
 		});
 		this.getSettings().setJavaScriptEnabled(true);
 		this.setWebViewClient(new WebViewClient() {
+			
+			@Override
+			public void onPageStarted(WebView view, String url, Bitmap favicon) {
+				// TODO Auto-generated method stub
+				super.onPageStarted(view, url, favicon);
+				theIWebViewStatus.onPageStarted();
+			}
 			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
 				theIWebViewStatus.onPageError(errorCode,description);
 			}

@@ -5,68 +5,20 @@
     tools:context="com.parcool.myshop.MainActivity" >
 
     <LinearLayout
-        android:background="#fff"
         android:id="@+id/ll_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/ll_navs"
-        android:orientation="vertical" >
+        android:layout_above="@+id/fragment_tab_host"
+        android:background="#fff"
+        android:orientation="horizontal" >
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_navs"
+    <android.support.v4.app.FragmentTabHost
+        android:id="@+id/fragment_tab_host"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="#ff2"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="发现"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="资讯"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="正品商城"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="圈儿同城"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="我的"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        android:background="@drawable/maintab_toolbar_bg"
+        android:layout_alignParentBottom="true" >
+    </android.support.v4.app.FragmentTabHost>
 
 </RelativeLayout>
