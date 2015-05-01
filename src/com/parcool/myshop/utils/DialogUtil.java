@@ -12,7 +12,10 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -43,7 +46,7 @@ public class DialogUtil {
 	private int backCount = 0;
 	private Activity dismissActivity = null;
 	private int LOADING_TOP_MARGIN = 100;// 单位，dp。实际应用中会自动转成dp
-	private final int DOT_CIRCEL_WIDTH= 40;// 单位，dp。实际应用中会自动转成dp
+	private final int DOT_CIRCEL_WIDTH = 40;// 单位，dp。实际应用中会自动转成dp
 
 	/***
 	 * 显示单独的progressBar.如果要设置某个例外，那么也设置这个view的tag为“gone”或“invisible”
@@ -53,6 +56,7 @@ public class DialogUtil {
 	 *            父容器资源ID。只能是LinearLayout或者RelativeLayout或者FrameLayout
 	 */
 	public void showSingelProgressBar(Activity activity, int viewGroupResId) {
+		dismissProgressBar();
 		View tempView = null;
 		if (activity.findViewById(viewGroupResId) instanceof RelativeLayout) {
 			viewGroupRl = (RelativeLayout) activity.findViewById(viewGroupResId);
@@ -115,6 +119,7 @@ public class DialogUtil {
 	 *            父容器资源ID。只能是LinearLayout或者RelativeLayout或者FrameLayout
 	 */
 	public void showDotCircelProgressBar(Activity activity, int viewGroupResId) {
+		dismissProgressBar();
 		View tempView = null;
 		if (activity.findViewById(viewGroupResId) instanceof RelativeLayout) {
 			viewGroupRl = (RelativeLayout) activity.findViewById(viewGroupResId);
@@ -185,6 +190,90 @@ public class DialogUtil {
 
 	}
 
+	private DotCircleProgressView dotCircleProgressView;
+	private Activity dotCircelActivity;
+
+	/***
+	 * 显示单独的progressBar.如果要设置某个例外，那么也设置这个view的tag为“gone”或“invisible”
+	 * 
+	 * @param activity
+	 * @param viewGroupResId
+	 *            父容器资源ID。只能是LinearLayout或者RelativeLayout或者FrameLayout
+	 */
+	public void showDotCircelProgressBar(Activity activity, ViewGroup viewGroup) {
+		dotCircelActivity = activity;
+		dismissProgressBar();
+		View tempView = null;
+		if (viewGroup instanceof RelativeLayout) {
+			viewGroupRl = (RelativeLayout) viewGroup;
+			for (int i = 0; i < viewGroupRl.getChildCount(); i++) {
+				tempView = viewGroupRl.getChildAt(i);
+				if (tempView.getTag() == null || (tempView.getVisibility() == View.GONE && tempView.getTag().toString().equals("gone")) || (tempView.getVisibility() == View.INVISIBLE && tempView.getTag().toString().equals("invisible"))) {
+					tempView.setVisibility(View.GONE);
+				}
+			}
+			Log.i("tag", "viewGroupRl:共" + viewGroupRl.getChildCount() + "个childCount!");
+			RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(CommonUtil.getInstance().dp2px(activity, DOT_CIRCEL_WIDTH), CommonUtil.getInstance().dp2px(activity, DOT_CIRCEL_WIDTH));
+			layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+			layoutParams.topMargin = CommonUtil.getInstance().dp2px(activity, LOADING_TOP_MARGIN);
+
+			dotCircleProgressView = new DotCircleProgressView(activity);
+			dotCircleProgressView.setDotColor(Color.RED);
+			dotCircleProgressView.setDotCount(8);
+			dotCircleProgressView.setDotSizeMin(3);
+			dotCircleProgressView.setDotSizeMax(5);
+			dotCircleProgressView.setLayoutParams(layoutParams);
+			viewGroupRl.addView(dotCircleProgressView);
+			dotCircleProgressView.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.anim_loading));
+		} else if (viewGroup instanceof LinearLayout) {
+			viewGroupLl = (LinearLayout) viewGroup;
+			for (int i = 0; i < viewGroupLl.getChildCount(); i++) {
+				tempView = viewGroupLl.getChildAt(i);
+				if (tempView.getTag() == null || (tempView.getVisibility() == View.GONE && tempView.getTag().toString().equals("gone")) || (tempView.getVisibility() == View.INVISIBLE && tempView.getTag().toString().equals("invisible"))) {
+					tempView.setVisibility(View.GONE);
+				}
+			}
+			Log.i("tag", "viewGroupLl:共" + viewGroupLl.getChildCount() + "个childCount!");
+			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(CommonUtil.getInstance().dp2px(activity, DOT_CIRCEL_WIDTH), CommonUtil.getInstance().dp2px(activity, DOT_CIRCEL_WIDTH));
+			layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+			layoutParams.topMargin = CommonUtil.getInstance().dp2px(activity, LOADING_TOP_MARGIN);
+
+			dotCircleProgressView = new DotCircleProgressView(activity);
+			dotCircleProgressView.setDotColor(Color.RED);
+			dotCircleProgressView.setDotCount(8);
+			dotCircleProgressView.setDotSizeMin(3);
+			dotCircleProgressView.setDotSizeMax(5);
+			dotCircleProgressView.setLayoutParams(layoutParams);
+			dotCircleProgressView.initView(activity);
+			viewGroupLl.addView(dotCircleProgressView);
+			dotCircleProgressView.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.anim_loading));
+		} else if (viewGroup instanceof FrameLayout) {
+			viewGroupFl = (FrameLayout) viewGroup;
+			for (int i = 0; i < viewGroupFl.getChildCount(); i++) {
+				tempView = viewGroupFl.getChildAt(i);
+				if (tempView.getTag() == null || (tempView.getVisibility() == View.GONE && tempView.getTag().toString().equals("gone")) || (tempView.getVisibility() == View.INVISIBLE && tempView.getTag().toString().equals("invisible"))) {
+					tempView.setVisibility(View.GONE);
+				}
+			}
+			Log.i("tag", "viewGroupFl:共" + viewGroupFl.getChildCount() + "个childCount!");
+			FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(CommonUtil.getInstance().dp2px(activity, DOT_CIRCEL_WIDTH), CommonUtil.getInstance().dp2px(activity, DOT_CIRCEL_WIDTH));
+			layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+			layoutParams.topMargin = CommonUtil.getInstance().dp2px(activity, LOADING_TOP_MARGIN);
+			dotCircleProgressView = new DotCircleProgressView(activity);
+			dotCircleProgressView.setDotColor(Color.RED);
+			dotCircleProgressView.setDotCount(8);
+			dotCircleProgressView.setDotSizeMin(3);
+			dotCircleProgressView.setDotSizeMax(5);
+			dotCircleProgressView.setLayoutParams(layoutParams);
+			dotCircleProgressView.initView(activity);
+			viewGroupFl.addView(dotCircleProgressView);
+			dotCircleProgressView.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.anim_loading));
+		} else {
+			Toast.makeText(activity, "不识别的ViewGroup", Toast.LENGTH_SHORT).show();
+		}
+		tempView = null;
+	}
+
 	/***
 	 * 隐藏progressBar
 	 */
@@ -198,7 +287,7 @@ public class DialogUtil {
 			pd = null;
 			return;
 		}
-		dismissActivity = null;
+
 		if (viewGroupRl != null) {
 			if (pb != null) {
 				viewGroupRl.removeView(pb);
@@ -207,6 +296,11 @@ public class DialogUtil {
 				if (viewGroupRl.getChildAt(i).getTag() == null || (!viewGroupRl.getChildAt(i).getTag().toString().equals("gone") && !viewGroupRl.getChildAt(i).getTag().toString().equals("invisible"))) {
 					viewGroupRl.getChildAt(i).setVisibility(View.VISIBLE);
 				}
+			}
+			if (dotCircleProgressView != null) {
+				dotCircleProgressView.clearAnimation();
+				viewGroupRl.removeView(dotCircleProgressView);
+				Log.d("tag", "viewGroupRl.removeView");
 			}
 			viewGroupRl = null;
 		} else if (viewGroupLl != null) {
@@ -218,6 +312,19 @@ public class DialogUtil {
 					viewGroupLl.getChildAt(i).setVisibility(View.VISIBLE);
 				}
 			}
+//			Animation anim = AnimationUtils.loadAnimation(dotCircelActivity, R.anim.item_alpha);
+//			LayoutAnimationController lac = new LayoutAnimationController(anim);
+//			// 设置控件显示的顺序；
+//			lac.setOrder(LayoutAnimationController.ORDER_REVERSE);
+//			viewGroupLl.setLayoutAnimation(lac);
+//			viewGroupLl.startAnimation(anim);
+			
+			// viewGroupLl.setLayoutAnimation(LayoutAnimationController.)
+			if (dotCircleProgressView != null) {
+				dotCircleProgressView.clearAnimation();
+				viewGroupLl.removeView(dotCircleProgressView);
+				Log.d("tag", "viewGroupLl.removeView");
+			}
 			viewGroupLl = null;
 		} else if (viewGroupFl != null) {
 			if (pb != null) {
@@ -228,9 +335,14 @@ public class DialogUtil {
 					viewGroupFl.getChildAt(i).setVisibility(View.VISIBLE);
 				}
 			}
+			if (dotCircleProgressView != null) {
+				dotCircleProgressView.clearAnimation();
+				viewGroupFl.removeView(dotCircleProgressView);
+				Log.d("tag", "viewGroupFl.removeView");
+			}
 			viewGroupFl = null;
 		}
-
+		dismissActivity = null;
 	}
 
 	/***
