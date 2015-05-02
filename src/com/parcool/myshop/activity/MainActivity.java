@@ -29,8 +29,6 @@ public class MainActivity extends FragmentActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		// init();
 		initTab();
 	}
 
@@ -54,8 +52,8 @@ public class MainActivity extends FragmentActivity {
 			if (fragment instanceof FragmentPage1) {
 				FragmentPage1 fragmentPage1 = (FragmentPage1) fragment;
 				if (fragmentPage1.getMyChromeWebViewOne().canGoBack()) {
-					fragmentPage1.getMyChromeWebViewOne().resumeTimers();
-					fragmentPage1.getMyChromeWebViewOne().pauseTimers();
+//					fragmentPage1.getMyChromeWebViewOne().resumeTimers();
+//					fragmentPage1.getMyChromeWebViewOne().pauseTimers();
 					fragmentPage1.getMyChromeWebViewOne().goBack();
 					return true;
 				}else{

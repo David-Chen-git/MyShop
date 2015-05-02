@@ -1,6 +1,7 @@
 package com.parcool.myshop.activity;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -15,6 +16,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.parcool.myshop.R;
+import com.parcool.myshop.adapter.MainMarketAdapter;
 
 
 public class TestPullToRefreshActivity extends Activity{
@@ -24,6 +26,8 @@ public class TestPullToRefreshActivity extends Activity{
 	private LinkedList<String> mListItems;
 	private PullToRefreshListView mPullRefreshListView;
 	private ArrayAdapter<String> mAdapter;
+	
+	private MainMarketAdapter mmAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +96,7 @@ public class TestPullToRefreshActivity extends Activity{
 		mListItems.addAll(Arrays.asList(mStrings));
 
 		mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mListItems);
-
+		
 		// 这两个绑定方法用其一
 		// 方法一
 		// mPullRefreshListView.setAdapter(mAdapter);
@@ -101,6 +105,7 @@ public class TestPullToRefreshActivity extends Activity{
 		actualListView.setAdapter(mAdapter);
 
 	}
+	
 
 	private class GetDataTask extends AsyncTask<Void, Void, String> {
 

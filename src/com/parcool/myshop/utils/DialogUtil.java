@@ -13,9 +13,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -441,6 +439,57 @@ public class DialogUtil {
 		}
 		if (!activity.isFinishing()) {
 			pd.show();
+		}
+	}
+	
+	
+	public void addRootLoading(Activity activity){
+		//获取Activity的根视图
+		View view = activity.findViewById(android.R.id.content).getRootView();
+		LinearLayout ll  = null;
+		RelativeLayout rl = null;
+		FrameLayout fl = null;
+		if (view instanceof LinearLayout) {
+			ll = (LinearLayout) view;
+			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(CommonUtil.getInstance().dp2px(activity, DOT_CIRCEL_WIDTH), CommonUtil.getInstance().dp2px(activity, DOT_CIRCEL_WIDTH));
+			layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+			layoutParams.topMargin = CommonUtil.getInstance().dp2px(activity, LOADING_TOP_MARGIN);
+			dotCircleProgressView = new DotCircleProgressView(activity);
+			dotCircleProgressView.setDotColor(Color.RED);
+			dotCircleProgressView.setDotCount(8);
+			dotCircleProgressView.setDotSizeMin(3);
+			dotCircleProgressView.setDotSizeMax(5);
+			dotCircleProgressView.setLayoutParams(layoutParams);
+			dotCircleProgressView.initView(activity);
+			ll.addView(dotCircleProgressView);
+			dotCircleProgressView.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.anim_loading));
+		}else if(view instanceof RelativeLayout){
+			rl = (RelativeLayout) view;
+			RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(CommonUtil.getInstance().dp2px(activity, DOT_CIRCEL_WIDTH), CommonUtil.getInstance().dp2px(activity, DOT_CIRCEL_WIDTH));
+			layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+			layoutParams.topMargin = CommonUtil.getInstance().dp2px(activity, LOADING_TOP_MARGIN);
+			dotCircleProgressView = new DotCircleProgressView(activity);
+			dotCircleProgressView.setDotColor(Color.RED);
+			dotCircleProgressView.setDotCount(8);
+			dotCircleProgressView.setDotSizeMin(3);
+			dotCircleProgressView.setDotSizeMax(5);
+			dotCircleProgressView.setLayoutParams(layoutParams);
+			rl.addView(dotCircleProgressView);
+			dotCircleProgressView.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.anim_loading));
+		}else if(view instanceof FrameLayout){
+			fl = (FrameLayout) view;
+			FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(CommonUtil.getInstance().dp2px(activity, DOT_CIRCEL_WIDTH), CommonUtil.getInstance().dp2px(activity, DOT_CIRCEL_WIDTH));
+			layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+			layoutParams.topMargin = CommonUtil.getInstance().dp2px(activity, LOADING_TOP_MARGIN);
+			dotCircleProgressView = new DotCircleProgressView(activity);
+			dotCircleProgressView.setDotColor(Color.RED);
+			dotCircleProgressView.setDotCount(8);
+			dotCircleProgressView.setDotSizeMin(3);
+			dotCircleProgressView.setDotSizeMax(5);
+			dotCircleProgressView.setLayoutParams(layoutParams);
+			dotCircleProgressView.initView(activity);
+			fl.addView(dotCircleProgressView);
+			dotCircleProgressView.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.anim_loading));
 		}
 	}
 }
