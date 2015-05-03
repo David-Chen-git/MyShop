@@ -11,6 +11,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parcool.myshop.R;
@@ -18,7 +19,7 @@ import com.parcool.myshop.view.SmoothImageView;
 
 public class DetailActivity extends BaseActivity {
 
-	private TextView tvEn, tvZh;
+	private TextView tvTitle, tvIntro;
 
 	// private int mPosition;
 	private int mLocationX;
@@ -47,15 +48,14 @@ public class DetailActivity extends BaseActivity {
 				startActivity(intent);
 			}
 		});
-		String titleZh = getIntent().getStringExtra("titleZh");
-		String titleEn = getIntent().getStringExtra("titleEn");
+		String title = getIntent().getStringExtra("title");
+		String intro = getIntent().getStringExtra("intro");
 		imageView = (SmoothImageView) findViewById(R.id.iv);
-		tvEn = (TextView) findViewById(R.id.tv_en);
-		tvZh = (TextView) findViewById(R.id.tv_zh);
+		tvTitle = (TextView) findViewById(R.id.tv_title);
+		tvIntro = (TextView) findViewById(R.id.tv_intro);
 //		imageView.setImageResource(imgUrl);
-		tvEn.setText(titleEn);
-		tvZh.setText(titleZh);
-		
+		tvTitle.setText(title);
+		tvIntro.setText(intro);
 		
 		String imgUrl = getIntent().getStringExtra("imgUrl");
 		mLocationX = getIntent().getIntExtra("locationX", 0);
@@ -70,7 +70,7 @@ public class DetailActivity extends BaseActivity {
 		imageView.setScaleType(ScaleType.FIT_CENTER);
 //		setContentView(imageView);
 		Log.d("tag", "imgUrl="+imgUrl);
-		ImageLoader.getInstance().displayImage("drawable://"+imgUrl, imageView);
+		ImageLoader.getInstance().displayImage(imgUrl, imageView);
 		LinearLayout llContainer = (LinearLayout) findViewById(R.id.xll);
 		AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
 		alphaAnimation.setStartOffset(200);

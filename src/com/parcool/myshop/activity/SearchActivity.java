@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -103,6 +104,9 @@ public class SearchActivity extends Activity {
 				// TODO Auto-generated method stub
 				//添加到历史搜索记录中
 				spValue.addLocalHistory(list.get(position).getTitle());
+				Intent intent = new Intent(SearchActivity.this,ProductsActivity.class);
+				intent.putExtra("title", list.get(position).getTitle());
+				startActivity(intent);
 			}
 		});
 

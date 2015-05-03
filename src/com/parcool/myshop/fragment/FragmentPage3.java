@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +15,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.parcool.myshop.R;
-import com.parcool.myshop.activity.DetailActivity;
+import com.parcool.myshop.activity.ProductsActivity;
 import com.parcool.myshop.adapter.MainMarketAdapter;
 import com.parcool.myshop.model.MainMarketModel;
 
@@ -82,22 +82,9 @@ public class FragmentPage3 extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(getActivity(),DetailActivity.class);
-				intent.putExtra("imgUrl", list.get(position).getImgUrl());
-				intent.putExtra("titleEn", list.get(position).getTitleEN());
-				intent.putExtra("titleZh", list.get(position).getTitleZH());
-				
-				intent.putExtra("position", position);
-				int[] location = new int[2];
-				view.findViewById(R.id.iv).getLocationOnScreen(location);
-				intent.putExtra("locationX", location[0]);
-				intent.putExtra("locationY", location[1]);
-
-				intent.putExtra("width", view.findViewById(R.id.iv).getWidth());
-				intent.putExtra("height", view.findViewById(R.id.iv).getHeight());
-				Log.d("tag", "location[0]="+location[0]+",location[1]="+location[1]+",width="+view.findViewById(R.id.iv).getWidth()+",height="+view.findViewById(R.id.iv).getHeight());
+				Intent intent = new Intent(getActivity(),ProductsActivity.class);
+				intent.putExtra("title", ((TextView)view.findViewById(R.id.tv_zh)).getText().toString());
 				startActivity(intent);
-				getActivity().overridePendingTransition(0, 0);
 			}
 		});
 	}

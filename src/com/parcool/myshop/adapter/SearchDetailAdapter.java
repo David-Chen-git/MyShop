@@ -57,7 +57,7 @@ public class SearchDetailAdapter extends BaseAdapter {
 
 		if (convertView == null) {
 			holder = new Holder();
-			convertView = LayoutInflater.from(context).inflate(R.layout.listview_main_serch, parent,false);
+			convertView = LayoutInflater.from(context).inflate(R.layout.listview_main_serch, parent, false);
 			holder.autoTitle1 = (TextView) convertView.findViewById(R.id.tv_child_title_1);
 			holder.autoTitle2 = (TextView) convertView.findViewById(R.id.tv_child_title_2);
 			holder.autoTitle3 = (TextView) convertView.findViewById(R.id.tv_child_title_3);
@@ -67,30 +67,34 @@ public class SearchDetailAdapter extends BaseAdapter {
 		}
 		String listTitleStr = list.get(position).getTitle();
 		int a = listTitleStr.indexOf(inputStr);
-		// 64, 64, 64是深灰色
-		// 61, 204, 151是绿色
-		if (a == 0) {
-			// 开头
-			holder.autoTitle1.setText("");
-			holder.autoTitle2.setText(listTitleStr.substring(0, inputStr.length()));
-			holder.autoTitle2.setTextColor(Color.rgb(61, 204, 151));
-			holder.autoTitle3.setText(listTitleStr.substring(inputStr.length()));
-			holder.autoTitle3.setTextColor(Color.rgb(64, 64, 64));
-		} else if (a == (listTitleStr.length() - inputStr.length())) {
-			// 末尾
-			holder.autoTitle1.setText("");
-			holder.autoTitle2.setText(listTitleStr.substring(0, a));
-			holder.autoTitle2.setTextColor(Color.rgb(64, 64, 64));
-			holder.autoTitle3.setText(listTitleStr.substring(a));
-			holder.autoTitle3.setTextColor(Color.rgb(61, 204, 151));
+		if (a == -1) {
+			holder.autoTitle1.setText(listTitleStr);
 		} else {
-			// 中间
-			holder.autoTitle1.setText(listTitleStr.substring(0, a));
-			holder.autoTitle1.setTextColor(Color.rgb(64, 64, 64));
-			holder.autoTitle2.setText(listTitleStr.substring(a, a + inputStr.length()));
-			holder.autoTitle2.setTextColor(Color.rgb(61, 204, 151));
-			holder.autoTitle3.setText(listTitleStr.substring(a + inputStr.length()));
-			holder.autoTitle3.setTextColor(Color.rgb(64, 64, 64));
+			// 64, 64, 64是深灰色
+			// 61, 204, 151是绿色
+			if (a == 0) {
+				// 开头
+				holder.autoTitle1.setText("");
+				holder.autoTitle2.setText(listTitleStr.substring(0, inputStr.length()));
+				holder.autoTitle2.setTextColor(Color.rgb(61, 204, 151));
+				holder.autoTitle3.setText(listTitleStr.substring(inputStr.length()));
+				holder.autoTitle3.setTextColor(Color.rgb(64, 64, 64));
+			} else if (a == (listTitleStr.length() - inputStr.length())) {
+				// 末尾
+				holder.autoTitle1.setText("");
+				holder.autoTitle2.setText(listTitleStr.substring(0, a));
+				holder.autoTitle2.setTextColor(Color.rgb(64, 64, 64));
+				holder.autoTitle3.setText(listTitleStr.substring(a));
+				holder.autoTitle3.setTextColor(Color.rgb(61, 204, 151));
+			} else {
+				// 中间
+				holder.autoTitle1.setText(listTitleStr.substring(0, a));
+				holder.autoTitle1.setTextColor(Color.rgb(64, 64, 64));
+				holder.autoTitle2.setText(listTitleStr.substring(a, a + inputStr.length()));
+				holder.autoTitle2.setTextColor(Color.rgb(61, 204, 151));
+				holder.autoTitle3.setText(listTitleStr.substring(a + inputStr.length()));
+				holder.autoTitle3.setTextColor(Color.rgb(64, 64, 64));
+			}
 		}
 		// holder.autoTitle.setText();
 		holder.autoTitle1.setTag(list.get(position));
