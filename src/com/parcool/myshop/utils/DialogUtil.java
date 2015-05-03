@@ -221,6 +221,7 @@ public class DialogUtil {
 			dotCircleProgressView.setDotSizeMin(3);
 			dotCircleProgressView.setDotSizeMax(5);
 			dotCircleProgressView.setLayoutParams(layoutParams);
+			dotCircleProgressView.initView(activity);
 			viewGroupRl.addView(dotCircleProgressView);
 			dotCircleProgressView.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.anim_loading));
 		} else if (viewGroup instanceof LinearLayout) {

@@ -38,18 +38,18 @@ public class BaseActivity extends Activity {
 
 	// 设置分享按钮事件
 	protected void setShareOnClickListener(View.OnClickListener onClickListener) {
-		findViewById(R.id.iv_back).setOnClickListener(onClickListener);
+		findViewById(R.id.iv_share).setOnClickListener(onClickListener);
 	}
-	
-	//设置返回键是否可见
+
+	// 设置返回键是否可见
 	protected void setBackVisible(boolean isVisible) {
 		if (isVisible) {
 			findViewById(R.id.iv_back).setVisibility(View.VISIBLE);
-		}else{
+		} else {
 			findViewById(R.id.iv_back).setVisibility(View.GONE);
 		}
 	}
-	
+
 	private void setBackListener(){
 		findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
 			
@@ -60,6 +60,12 @@ public class BaseActivity extends Activity {
 			}
 		});
 	}
+	protected void setBackListener(View.OnClickListener onClickListener){
+		findViewById(R.id.iv_back).setOnClickListener(onClickListener);
+	}
 	
+	protected RelativeLayout getNavView(){
+		return (RelativeLayout) findViewById(R.id.rl_nav);
+	}
 
 }

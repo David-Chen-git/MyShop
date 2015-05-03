@@ -70,6 +70,7 @@
             android:name="com.parcool.myshop.activity.DetailActivity"
             android:theme="@style/IMTheme.Transparent" >
         </activity>
+        <activity android:name="com.parcool.myshop.activity.SearchActivity"></activity>
     </application>
 
 </manifest>

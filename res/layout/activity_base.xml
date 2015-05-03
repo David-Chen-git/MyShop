@@ -43,7 +43,7 @@
             android:contentDescription="@string/app_name"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:src="@drawable/ic_menu_share" />
+            android:src="@drawable/ic_menu_search_holo_dark" />
     </RelativeLayout>
 
     <RelativeLayout

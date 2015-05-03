@@ -20,7 +20,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:src="@drawable/ic_menu_back_holo"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
         <TextView
             android:id="@+id/tv_title"

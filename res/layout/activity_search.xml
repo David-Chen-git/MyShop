@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/rl_nav"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/app_color" >
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/ic_menu_back_holo" />
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/iv_share"
+            android:layout_toRightOf="@+id/iv_back"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:hint="请输入搜索关键字"
+            android:imeOptions="actionSearch"
+            android:padding="5dp"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/ic_menu_search_holo_dark" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_nav"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp" >
+
+        <TextView
+            android:id="@+id/tv_hot_marker_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="@string/hot_marker"
+            android:textColor="@color/app_color"
+            android:textSize="16sp" />
+
+        <com.parcool.myshop.view.MyFlowLayout
+            android:id="@+id/my_flowlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_hot_marker_tip" >
+        </com.parcool.myshop.view.MyFlowLayout>
+
+        <TextView
+            android:id="@+id/tv_search_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/my_flowlayout"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/search_history"
+            android:textColor="@color/app_color"
+            android:textSize="16sp"
+            android:tag="gone"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_recycle"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/my_flowlayout"
+            android:layout_marginTop="8dp"
+            android:layout_toLeftOf="@+id/tv_clear_search_history"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/icon_recycle"
+            android:tag="gone"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_clear_search_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/my_flowlayout"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/clear_search_history"
+            android:textColor="@color/app_color"
+            android:textSize="16sp"
+            android:tag="gone"
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@+id/lv_local_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_search_history"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:scrollbars="none" >
+        </ListView>
+
+        <ListView
+            android:id="@+id/lv_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lv_local_history"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="-8dp"
+            android:scrollbars="none" >
+        </ListView>
+    </RelativeLayout>
+
+</RelativeLayout>

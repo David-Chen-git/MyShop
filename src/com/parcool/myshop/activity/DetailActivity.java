@@ -1,21 +1,16 @@
 package com.parcool.myshop.activity;
 
-import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationSet;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ImageView.ScaleType;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parcool.myshop.R;
@@ -43,6 +38,15 @@ public class DetailActivity extends BaseActivity {
 
 	private void init() {
 		// TODO Auto-generated method stub
+		setShareOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(DetailActivity.this,SearchActivity.class);
+				startActivity(intent);
+			}
+		});
 		String titleZh = getIntent().getStringExtra("titleZh");
 		String titleEn = getIntent().getStringExtra("titleEn");
 		imageView = (SmoothImageView) findViewById(R.id.iv);
@@ -77,12 +81,15 @@ public class DetailActivity extends BaseActivity {
 				llContainer.getChildAt(i).startAnimation(alphaAnimation);
 			}
 		}
+		findViewById(R.id.rl_btn).setVisibility(View.VISIBLE);
+		findViewById(R.id.rl_btn).startAnimation(alphaAnimation);
+		getNavView().startAnimation(alphaAnimation);
 
 		imageView.setOnTransformListener(new SmoothImageView.TransformListener() {
 			@Override
 			public void onTransformComplete(int mode) {
 				if (mode == 1) {
-					
+					findViewById(R.id.rl_root_bg).setBackgroundColor(Color.WHITE);
 //					LinearLayout llContainer = (LinearLayout) findViewById(R.id.xll);
 //					AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
 //					alphaAnimation.setDuration(300);
@@ -99,38 +106,26 @@ public class DetailActivity extends BaseActivity {
 			}
 		});
 		
+		setBackListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				backAnim();
+			}
+		});
 		
-
-
-//		// mDatas = (ArrayList<String>)
-//		// getIntent().getSerializableExtra("images");
-//		// mPosition = getIntent().getIntExtra("position", 0);
-//
-//		xll = (XLinearLayout) findViewById(R.id.xll);
-//
-//		xll.setOriginalInfo(mWidth, mHeight, mLocationX, mLocationY);
-//		xll.transformIn();
-//		// imageView.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
-//		// imageView.setScaleType(ScaleType.FIT_CENTER);
-//		// imageView.setImageResource(imgUrl);
-//		xll.start();
 	}
-
-//	@Override
-//	public void onBackPressed() {
-//		xll.setOnTransformListener(new XLinearLayout.TransformListener() {
-//			@Override
-//			public void onTransformComplete(int mode) {
-//				if (mode == 2) {
-//					finish();
-//				}
-//			}
-//		});
-//		xll.transformOut();
-//	}
 
 	@Override
 	public void onBackPressed() {
+		backAnim();
+	}
+	
+	
+	
+	private void backAnim(){
+		findViewById(R.id.rl_root_bg).setBackgroundColor(Color.TRANSPARENT);
 		LinearLayout llContainer = (LinearLayout) findViewById(R.id.xll);
 		AlphaAnimation alphaAnimation = new AlphaAnimation(1, 0);
 		alphaAnimation.setDuration(400);
@@ -140,6 +135,9 @@ public class DetailActivity extends BaseActivity {
 				llContainer.getChildAt(i).startAnimation(alphaAnimation);
 			}
 		}
+		findViewById(R.id.rl_btn).setVisibility(View.VISIBLE);
+		findViewById(R.id.rl_btn).startAnimation(alphaAnimation);
+		getNavView().startAnimation(alphaAnimation);
 		alphaAnimation.setAnimationListener(new AnimationListener() {
 			
 			@Override
@@ -163,6 +161,7 @@ public class DetailActivity extends BaseActivity {
 						llContainer.getChildAt(i).setVisibility(View.GONE);
 					}
 				}
+				findViewById(R.id.rl_btn).setVisibility(View.GONE);
 			}
 		});
 		imageView.setOnTransformListener(new SmoothImageView.TransformListener() {
@@ -175,6 +174,7 @@ public class DetailActivity extends BaseActivity {
 		});
 		imageView.transformOut();
 	}
+	
 	@Override
 	protected void onPause() {
 		super.onPause();

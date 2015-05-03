@@ -86,6 +86,7 @@ public class DotCircleProgressView extends View {
 	public DotCircleProgressView(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public void initView(Context context){

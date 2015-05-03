@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.parcool.myshop.R;
@@ -16,7 +17,7 @@ import com.parcool.myshop.view.MyChromeWebView;
 
 public class FragmentPage1 extends Fragment{
 
-	private LinearLayout llContainer;
+	private RelativeLayout rlContainer;
 	private MyChromeWebView myChromeWebViewOne;
 	private View view;
 	private boolean isPageFinished = false;
@@ -25,12 +26,12 @@ public class FragmentPage1 extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_1, container,false);
-		llContainer = (LinearLayout) view.findViewById(R.id.ll_root);
+		rlContainer = (RelativeLayout) view.findViewById(R.id.ll_root);
 		if (view == null || !isPageFinished) {
 			init();
 		}else{
 			((ViewGroup)myChromeWebViewOne.getParent()).removeView(myChromeWebViewOne);
-			llContainer.addView(myChromeWebViewOne);
+			rlContainer.addView(myChromeWebViewOne);
 		}
 		return view;
 	}	
@@ -49,7 +50,7 @@ public class FragmentPage1 extends Fragment{
 			@Override
 			public void onPageStarted() {
 				// TODO Auto-generated method stub
-				DialogUtil.getInstance().showDotCircelProgressBar(getActivity(), (LinearLayout) view.findViewById(R.id.ll_root));
+				DialogUtil.getInstance().showDotCircelProgressBar(getActivity(), (RelativeLayout) view.findViewById(R.id.ll_root));
 			}
 
 			@Override
@@ -71,6 +72,6 @@ public class FragmentPage1 extends Fragment{
 		});
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		myChromeWebViewOne.setLayoutParams(lp);
-		llContainer.addView(myChromeWebViewOne);
+		rlContainer.addView(myChromeWebViewOne);
 	}
 }
